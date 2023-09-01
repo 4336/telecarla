@@ -48,7 +48,7 @@ sudo apt-get install -y \
     ros-$ROS_VERSION-rviz \
     ros-$ROS_VERSION-rqt-image-view \
     ros-$ROS_VERSION-pcl-ros
-git clone --recurse-submodules https://github.com/4336/carla_ros_bridge.git
+git clone --recurse-submodules git@github.com:4336/carla_ros_bridge.git
 rosdep update
 rosdep install --from-paths src --ignore-src -r
 pip3 install -r "$WS_SRC"/ros-bridge/requirements.txt
