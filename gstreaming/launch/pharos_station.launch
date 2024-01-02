@@ -1,0 +1,30 @@
+<launch>
+  <arg name='side' default='true'/>
+  <arg name='rear' default='true'/>
+
+  <!--  GStreamer Client  -->
+  <include file="$(find gstreaming)/launch/rtsp/rtsp_client.launch">
+      <arg name='client_id' value='front_cam'/>
+      <arg name='host' value='$(arg host)'/>
+      <arg name='mount' value='front_cam'/>
+      <arg name='port' value='8551'/>
+  </include>
+  <include if='$(arg side)' file="$(find gstreaming)/launch/rtsp/rtsp_client.launch">
+      <arg name='client_id' value='left_cam'/>
+      <arg name='host' value='$(arg host)'/>
+      <arg name='mount' value='left_cam'/>
+      <arg name='port' value='8552'/>
+  </include>
+  <include if='$(arg side)' file="$(find gstreaming)/launch/rtsp/rtsp_client.launch">
+      <arg name='client_id' value='right_cam'/>
+      <arg name='host' value='$(arg host)'/>
+      <arg name='mount' value='right_cam'/>
+      <arg name='port' value='8553'/>
+  </include>
+  <include if='$(arg rear)' file="$(find gstreaming)/launch/rtsp/rtsp_client.launch">
+      <arg name='client_id' value='rear_cam'/>
+      <arg name='host' value='$(arg host)'/>
+      <arg name='mount' value='rear_cam'/>
+      <arg name='port' value='8554'/>
+  </include>
+</launch>

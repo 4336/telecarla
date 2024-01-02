@@ -20,7 +20,7 @@ PipelineState RTSPServer::start(int serverPort, const std::string& src)
 
         std::stringstream command;
         command << src << " name=" << context_->app->getName()
-                << " is-live=true ! videorate ! videoconvert ! timeoverlay halignment=right valignment=top text=\""
+                << " is-live=true ! videorate ! videoconvert ! video/x-raw,format=I420 ! timeoverlay halignment=right valignment=top text=\""
                 << context_->app->getName()
                 << "\" font-desc=\"12\" !"
                    " x264enc tune=zerolatency speed-preset=ultrafast bitrate="

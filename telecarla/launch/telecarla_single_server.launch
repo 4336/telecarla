@@ -5,6 +5,7 @@
     <arg name="town" default="Town01"/>
     <arg name="port" default="8551"/>
 
+    <arg name="in_topic" default="/carla/$(arg role_name)/front/image"/>
 
     <!--  Carla ROS bridge  -->
     <include unless="$(arg bag_input)" file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
@@ -21,7 +22,7 @@
     <!--  GStreamer Server  -->
     <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
         <arg name='port' value='$(arg port)'/>
-        <arg name="in_topic" value="/carla/$(arg role_name)/front/image"/>
+        <arg name="in_topic" value="$(arg in_topic)"/>
         <arg name="mount" value="front"/>
     </include>
 </launch>

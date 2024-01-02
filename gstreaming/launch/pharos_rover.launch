@@ -1,0 +1,30 @@
+<launch>
+  <arg name='side' default='true'/>
+  <arg name='rear' default='true'/>
+
+  <!--  GStreamer Server  -->
+  <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+      <arg name='server_id' value='front_cam'/>
+      <arg name='mount' value='front_cam'/>
+      <arg name='port' value='8551'/>
+      <arg name='in_topic' value='/imx390/front_cam/image_raw'/>
+  </include>
+  <include if='$(arg side)' file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+      <arg name='server_id' value='left_cam'/>
+      <arg name='mount' value='left_cam'/>
+      <arg name='port' value='8552'/>
+      <arg name='in_topic' value='/imx390/left_cam/image_raw'/>
+  </include>
+  <include if='$(arg side)' file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+      <arg name='server_id' value='right_cam'/>
+      <arg name='mount' value='right_cam'/>
+      <arg name='port' value='8553'/>
+      <arg name='in_topic' value='/imx390/right_cam/image_raw'/>
+  </include>
+  <include if='$(arg rear)' file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+      <arg name='server_id' value='rear_cam'/>
+      <arg name='mount' value='rear_cam'/>
+      <arg name='port' value='8554'/>
+      <arg name='in_topic' value='/imx390/rear_cam/image_raw'/>
+  </include>
+</launch>
