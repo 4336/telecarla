@@ -1,30 +1,63 @@
 <launch>
   <arg name='side' default='true'/>
   <arg name='rear' default='true'/>
+  
+  <arg name='ratio' default='0.5'/>
 
   <!--  GStreamer Server  -->
+  <group ns="resize">
+    <node name="front_cam" pkg="nodelet" type="nodelet"
+      args="standalone image_proc/resize"
+      output="screen">
+      <remap from="image" to="/imx390/front_cam/image_raw" />
+      <param name="scale_width" value="$(arg ratio)" />
+      <param name="scale_height" value="$(arg ratio)" />
+    </node>
+    <node name="left_cam" pkg="nodelet" type="nodelet"
+      args="standalone image_proc/resize"
+      output="screen">
+      <remap from="image" to="/imx390/left_cam/image_raw" />
+      <param name="scale_width" value="$(arg ratio)" />
+      <param name="scale_height" value="$(arg ratio)" />
+    </node>
+    <node name="right_cam" pkg="nodelet" type="nodelet"
+      args="standalone image_proc/resize"
+      output="screen">
+      <remap from="image" to="/imx390/right_cam/image_raw" />
+      <param name="scale_width" value="$(arg ratio)" />
+      <param name="scale_height" value="$(arg ratio)" />
+    </node>
+    <node name="rear_cam" pkg="nodelet" type="nodelet"
+      args="standalone image_proc/resize"
+      output="screen">
+      <remap from="image" to="/imx390/rear_cam/image_raw" />
+      <param name="scale_width" value="$(arg ratio)" />
+      <param name="scale_height" value="$(arg ratio)" />
+    </node>
+  </group>
+  
   <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
       <arg name='server_id' value='front_cam'/>
       <arg name='mount' value='front_cam'/>
       <arg name='port' value='8551'/>
-      <arg name='in_topic' value='/imx390/front_cam/image_raw'/>
+      <arg name='in_topic' value='/resize/front_cam/image'/>
   </include>
   <include if='$(arg side)' file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
       <arg name='server_id' value='left_cam'/>
       <arg name='mount' value='left_cam'/>
       <arg name='port' value='8552'/>
-      <arg name='in_topic' value='/imx390/left_cam/image_raw'/>
+      <arg name='in_topic' value='/resize/left_cam/image'/>
   </include>
   <include if='$(arg side)' file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
       <arg name='server_id' value='right_cam'/>
       <arg name='mount' value='right_cam'/>
       <arg name='port' value='8553'/>
-      <arg name='in_topic' value='/imx390/right_cam/image_raw'/>
+      <arg name='in_topic' value='/resize/right_cam/image'/>
   </include>
   <include if='$(arg rear)' file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
       <arg name='server_id' value='rear_cam'/>
       <arg name='mount' value='rear_cam'/>
       <arg name='port' value='8554'/>
-      <arg name='in_topic' value='/imx390/rear_cam/image_raw'/>
+      <arg name='in_topic' value='/resize/rear_cam/image'/>
   </include>
 </launch>

@@ -1,4 +1,6 @@
 <launch>
+  <arg name='host' default='192.168.51.201'/>
+
   <arg name='side' default='true'/>
   <arg name='rear' default='true'/>
 
